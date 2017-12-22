@@ -1,0 +1,37 @@
+{
+  "name": "timo",
+  "version": "0.0.1",
+  "description": "a cross-platform ide for hana db sql",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "watchify src/index.jsx -t babelify -o build/bundle.js --debug --verbose",
+    "electron": "webpack && electron .",
+    "pack-win": "webpack && electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --electron-version=1.7.10",
+    "pack-mac": "webpack && electron-packager . --overwrite --platform=darwin --arch=x64 --electron-version=1.7.10"
+  },
+  "author": "timo xue",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "browserify": "^14.5.0",
+    "css-loader": "^0.28.7",
+    "electron": "^1.7.10",
+    "electron-packager": "^10.1.0",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "is-electron-renderer": "^2.0.1",
+    "style-loader": "^0.19.1",
+    "watchify": "^3.9.0",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.9.7",
+    "webpack-target-electron-renderer": "^0.4.0"
+  },
+  "dependencies": {
+    "material-ui": "^0.20.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-tap-event-plugin": "^3.0.2"
+  }
+}
