@@ -1,0 +1,8 @@
+module.exports = {
+    EDITOR_WINDOW_TITLE: "Timo HANA Studio",
+    EDITOR_WINDOW_WIDTH: 1024,
+    EDITOR_WINDOW_HEIGHT:768,
+    CONN_WINDOW_TITLE: "Add HANA Connection",
+    CONN_WINDOW_WIDTH: 400,
+    CONN_WINDOW_HEIGHT: 300,
+} 
