@@ -17,7 +17,7 @@ module.exports = env => {
             filename: 'bundle.js',
         },
         resolve:{
-            extensions:['.js','.jsx']
+            extensions:['.js','.jsx','.css']
         },
     
         module: {
@@ -28,9 +28,39 @@ module.exports = env => {
                     use: {
                         loader: 'babel-loader'
                     }
+                },
+                {
+                    test: /\.css$/,
+                    use: [
+                        'style-loader',
+                        'css-loader',
+                        { 
+                            loader: 'postcss-loader', 
+                            options: {  
+                                plugins: (loader) => 
+                                    [require('autoprefixer') 
+                                ]} 
+                        }
+                    ]
+                },
+                {
+                    test: /\.less$/,
+                    use: [
+                        'style-loader',
+                        'css-loader',
+                        'less-loader',
+                        { 
+                            loader: 'postcss-loader', 
+                            options: {  
+                                plugins: (loader) => 
+                                    [require('autoprefixer') 
+                                ]} 
+                        }
+                    ]
                 }
             ]
         },
+
         plugins: [
             new webpack.HotModuleReplacementPlugin(),
         ],

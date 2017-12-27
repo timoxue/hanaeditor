@@ -6,10 +6,14 @@ const url = require('url');
 const path = require('path');
 const WindowType = require('./src/constants/window.jsx');
 const global_config = require('./env.js');
-
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 let mainWindow, connectionWindow = null;
+const HDBConnection = require('./connection/HDBConnection')
+
+const conn = new HDBConnection()
+
+conn.initialize()
 
 const ipc = electron.ipcMain;
 app.on('window-all-closed', () => {
@@ -81,7 +85,9 @@ app.on('ready', () => {
 
     ipc.on('addConnection', function(event, arg) {
         event.returnValue = '';
-        mainWindow.webContents.send('connection-info', 'hana sql')
-        console.log("send!")
+        console.log("Get connection info!" + arg)
+        mainWindow.webContents.send('connection-info', arg)
+        connectionWindow.webContents.send('connection-info', arg)
     })
+
 })
