@@ -1,0 +1,13 @@
+{
+  "conns": [
+    {
+      "database": "hxe",
+      "hostname": "192.168.5.128",
+      "instanceNum": "90",
+      "password": "B3acodingman",
+      "username": "system"
+    },
+    null
+  ],
+  "opened": []
+}

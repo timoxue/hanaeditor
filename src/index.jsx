@@ -10,6 +10,7 @@ import { MainWindow, ConnectionWindow } from './window'
 var homePage = <MainWindow />
 
 const title = electron.remote.getCurrentWindow().getTitle()
+
 if(title === WindowType.CONN_WINDOW_TITLE) {
     homePage = <ConnectionWindow />
 } else if (title == WindowType.EDITOR_WINDOW_TITLE) {

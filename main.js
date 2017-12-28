@@ -9,19 +9,35 @@ const global_config = require('./env.js');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 let mainWindow, connectionWindow = null;
-const HDBConnection = require('./connection/HDBConnection')
+const HDBConnection = require('./backend/connection/HDBConnection')
+const SIDB = require('./backend/database')
 
+/**
+ * Intiailization service area
+ * e.g. HANA Connection
+ */
 const conn = new HDBConnection()
-
-conn.initialize()
-
+const jsondb = new SIDB() 
 const ipc = electron.ipcMain;
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-      app.quit();
-  }
-});
+jsondb.initialize()
+let connections = jsondb.getAllConnection()
 
+/**
+ * Global area
+ */
+global.hdbconnections = {
+    conns : connections
+}
+
+ /**
+  * App intiailization
+  */
+app.on('window-all-closed', () => {
+    if (process.platform !== 'darwin') {
+        app.quit();
+    }
+});
+  
 app.on('ready', () => {
     mainWindow = new BrowserWindow({ 
         title: WindowType.EDITOR_WINDOW_TITLE, 
@@ -36,7 +52,8 @@ app.on('ready', () => {
         parent: mainWindow, 
         modal: true,
         frame: true,
-        autoHideMenuBar: true
+        autoHideMenuBar: true,
+        frame: false
     })
 
     /** 
@@ -86,8 +103,21 @@ app.on('ready', () => {
     ipc.on('addConnection', function(event, arg) {
         event.returnValue = '';
         console.log("Get connection info!" + arg)
+        let port = arg.instanceNum * 100 + 3 * 10000 + 15
+        let client = conn.initialize(arg.hostname, port, arg.database, arg.username, arg.password).getClient()
+        jsondb.writeConnection(arg)
+        client.connect((err) => {
+            if (err) {
+                console.error('Connect error', err);
+            }
+            client.exec('select * from DUMMY', (err, rows) => {
+                client.end();
+                console.log("successful executed!")
+                jsondb.writeConnection()
+                console.log(rows)
+            })
+        })
         mainWindow.webContents.send('connection-info', arg)
         connectionWindow.webContents.send('connection-info', arg)
     })
-
 })

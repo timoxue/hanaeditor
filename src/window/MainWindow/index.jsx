@@ -1,10 +1,11 @@
 import React from 'react';
 import electron from 'electron';
+import { ConnectionManager } from '../../editor'
+import './style.less'
 
 class MainWindow extends React.Component {
     constructor(props, context) {
         super(props, context)
-
     }
     componentDidMount() {
         console.log('this is from main window info')
@@ -14,8 +15,12 @@ class MainWindow extends React.Component {
     }
     render() {
         return(
-            <div className="item btn-add-conn">
-                <h2>Main Window</h2>
+            <div>
+                <div className="main-window">
+                    <h2>Main Window</h2>
+                    <ConnectionManager />
+                </div>
+
             </div>
         )
     }

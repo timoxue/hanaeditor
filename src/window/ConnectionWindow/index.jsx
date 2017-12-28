@@ -14,12 +14,16 @@ class ConnectionWindow extends React.Component {
             database: '',
             username: '',
             password: '',
+            instanceNum: ''
         }
     }
 
     addConnection() {
         console.log('1 send from renderer: add connection ' + process.type)
         electron.ipcRenderer.send('addConnection', this.state);
+    }
+    cancelWindow() {
+        electron.ipcRenderer.send('closeConnectionWindow', 'HIDE')
     }
     updateInputValue(event) {
         const target = event.target
@@ -52,6 +56,10 @@ class ConnectionWindow extends React.Component {
                         <input  type="text" className="in-text" name="hostname" value={this.state.hostname} onChange={this.updateInputValue} />
                     </div>
                     <div className="item">
+                        <label>Instance Num : </label>
+                        <input  type="text" className="in-text" name="instanceNum" value={this.state.instanceNum} onChange={this.updateInputValue} />
+                    </div>
+                    <div className="item">
                         <label>Database : </label>
                         <input  type="text" className="in-text" name="database" value={this.state.database} onChange={this.updateInputValue} />
                     </div>
@@ -62,6 +70,11 @@ class ConnectionWindow extends React.Component {
                     <div className="item">
                         <label>Password : </label>
                         <input type="password" className="in-text" name="password" value={this.state.password} onChange={this.updateInputValue} />
+                    </div>
+                    <div>
+                        <button onClick={this.cancelWindow}>
+                            Cancel
+                        </button>
                     </div>
                     <div className="item btn-add-conn">
                         <button onClick={this.addConnection}>
