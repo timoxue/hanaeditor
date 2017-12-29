@@ -9,15 +9,18 @@ const global_config = require('./env.js');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 let mainWindow, connectionWindow = null;
+//backend
 const HDBConnection = require('./backend/connection/HDBConnection')
 const SIDB = require('./backend/database')
+const Util = require('./backend/util')
 
 /**
  * Intiailization service area
  * e.g. HANA Connection
  */
 const conn = new HDBConnection()
-const jsondb = new SIDB() 
+const jsondb = new SIDB()
+const utility = new Util()
 const ipc = electron.ipcMain;
 jsondb.initialize()
 let connections = jsondb.getAllConnection()
@@ -105,19 +108,32 @@ app.on('ready', () => {
         console.log("Get connection info!" + arg)
         let port = arg.instanceNum * 100 + 3 * 10000 + 15
         let client = conn.initialize(arg.hostname, port, arg.database, arg.username, arg.password).getClient()
-        jsondb.writeConnection(arg)
-        client.connect((err) => {
-            if (err) {
-                console.error('Connect error', err);
-            }
-            client.exec('select * from DUMMY', (err, rows) => {
-                client.end();
-                console.log("successful executed!")
-                jsondb.writeConnection()
-                console.log(rows)
+        if(arg.hostname === '') {
+            //nothing need to improve in the future
+        } else {
+            client.connect((err) => {
+                if (err) {
+                    console.error('Connect error', err);
+                }
+                client.exec('select * from DUMMY', (err, rows) => {
+                    client.end();
+                    console.log("successful executed!")
+                    utility.saveConnection(arg)
+                    jsondb.writeConnection()
+                    console.log(rows)
+                })
             })
-        })
-        mainWindow.webContents.send('connection-info', arg)
-        connectionWindow.webContents.send('connection-info', arg)
+            mainWindow.webContents.send('connection-info', arg)
+            connectionWindow.webContents.send('connection-info', arg)
+        }
+        //jsondb.writeConnection(arg)
+
     })
+
+    ipc.on('retrive-sql-data', (arg) => {
+
+    })
+
+
+//inside    
 })

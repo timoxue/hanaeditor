@@ -23,4 +23,8 @@ SIDB.prototype.getAllConnection = function() {
     return db.get('conns').filter().value()
 }
 
+SIDB.prototype.findConnection = function(id) {
+    //id parameter should be a object => {'key': '12345'}
+    return db.get('conns').filter(id).value()
+}
 module.exports = SIDB

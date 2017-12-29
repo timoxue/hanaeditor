@@ -16,6 +16,8 @@ HDBConnection.prototype.initialize = function(hostname, port, database, user, pa
     this.database = database
     this.user = user
     this.password = password
+    this.client
+    getClient()
     return this
 }
 
@@ -30,6 +32,16 @@ HDBConnection.prototype.getClient = function() {
     return this.client
 }
 
-
+HDBConnection.prototype.executeSQL = function(sql) {
+    this.client.connect((err) => {
+        if (err) {
+            console.error('Connect error', err);
+        }
+        client.exec(sql, (err, rows) => {
+            client.end();
+            return rows
+        })
+    })
+}
 
 module.exports = HDBConnection

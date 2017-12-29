@@ -1,13 +1,31 @@
 {
   "conns": [
     {
-      "database": "hxe",
+      "id": "afa45a26",
       "hostname": "192.168.5.128",
+      "username": "master",
+      "database": "hxe",
       "instanceNum": "90",
-      "password": "B3acodingman",
-      "username": "system"
+      "password": "323c67f2e52b089ef5664c0a"
     },
-    null
+    {
+      "id": "5921992f",
+      "hostname": "192.168.5.128",
+      "username": "system",
+      "database": "hxe",
+      "instanceNum": "90",
+      "password": "323c67f2e52b089ef5664c0a"
+    }
   ],
-  "opened": []
+  "opened": [],
+  "sqlinfo": [
+    {
+      "name": "test",
+      "sql": "select * from DUMMY"
+    },
+    {
+      "name": "schema",
+      "sql": ""
+    }
+  ]
 }

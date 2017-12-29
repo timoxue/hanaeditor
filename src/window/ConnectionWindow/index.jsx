@@ -71,17 +71,20 @@ class ConnectionWindow extends React.Component {
                         <label>Password : </label>
                         <input type="password" className="in-text" name="password" value={this.state.password} onChange={this.updateInputValue} />
                     </div>
-                    <div>
-                        <button onClick={this.cancelWindow}>
-                            Cancel
-                        </button>
-                    </div>
-                    <div className="item btn-add-conn">
-                        <button onClick={this.addConnection}>
-                            Add Connection
-                        </button>
-                    </div>
                 </div>
+
+                <div className="btn-area">
+                        <div  className="btn-cancel-conn">
+                            <button onClick={this.cancelWindow}>
+                                Cancel
+                            </button>
+                        </div>
+                        <div className="btn-add-conn">
+                            <button onClick={this.addConnection}>
+                                Add Connection
+                            </button>
+                        </div>
+                    </div>
             </div>
         )
     }

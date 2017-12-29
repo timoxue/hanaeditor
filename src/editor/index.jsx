@@ -1,5 +1,7 @@
 import ConnectionManager from './ConnectionManager'
+import ConnectionTree from './ConnectionTree'
 
 module.exports = {
-    ConnectionManager: ConnectionManager
+    ConnectionManager: ConnectionManager,
+    ConnectionTree: ConnectionTree
 }

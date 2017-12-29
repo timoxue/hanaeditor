@@ -38,6 +38,9 @@
     "material-ui": "^0.20.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-tap-event-plugin": "^3.0.2"
+    "react-native": "^0.51.0",
+    "react-rnd": "^7.3.0",
+    "react-tap-event-plugin": "^3.0.2",
+    "react-treebeard": "^2.1.0"
   }
 }

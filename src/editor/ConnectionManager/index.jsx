@@ -1,5 +1,6 @@
 import React from 'react'
 import './style.less'
+import ConnectionTree from './../ConnectionTree'
 import electron from 'electron'
 
 class ConnectionManager extends React.Component {
@@ -13,13 +14,12 @@ class ConnectionManager extends React.Component {
     render() {
         const hxeconns = this.state.connections.conns
         const listItems = hxeconns.map((conn) =>
-            <li key={1}>{conn.hostname}</li>
+            <li key={conn.id}>{conn.hostname}:{conn.instanceNum}::{conn.database}({conn.username})</li>
         )
         return (     
             <div className="left-manager">
-                tree here:
                 <div className="tree">
-                     {listItems}
+                    <ConnectionTree />
                 </div>
             </div>
         )
