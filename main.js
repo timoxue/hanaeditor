@@ -22,14 +22,19 @@ const conn = new HDBConnection()
 const jsondb = new SIDB()
 const utility = new Util()
 const ipc = electron.ipcMain;
+
+/**
+ * initialize database
+ */
 jsondb.initialize()
-let connections = jsondb.getAllConnection()
 
 /**
  * Global area
  */
+//initialize the global values
+
 global.hdbconnections = {
-    conns : connections
+    conns : utility.updateConnection()
 }
 
  /**
@@ -118,12 +123,13 @@ app.on('ready', () => {
                 client.exec('select * from DUMMY', (err, rows) => {
                     client.end();
                     console.log("successful executed!")
-                    utility.saveConnection(arg)
-                    jsondb.writeConnection()
+                    let savedConnKey = utility.saveConnection(arg)
+                    utility.updateConnection()
+                    mainWindow.webContents.send('connection-info', utility.composeSingleConnection(savedConnKey))
                     console.log(rows)
                 })
             })
-            mainWindow.webContents.send('connection-info', arg)
+            //mainWindow.webContents.send('connection-info', arg)
             connectionWindow.webContents.send('connection-info', arg)
         }
         //jsondb.writeConnection(arg)
@@ -131,7 +137,7 @@ app.on('ready', () => {
     })
 
     ipc.on('retrive-sql-data', (arg) => {
-
+        
     })
 
 

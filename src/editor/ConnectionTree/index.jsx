@@ -6,35 +6,9 @@ const modifiedDecorators = Object.assign({},decorators, {
     //nothing now
 });
 
-const data = {
-    name: 'root',
-    toggled: true,
-    children: [
-        {
-            name: 'parent',
-            children: [
-                { name: 'child1' },
-                { name: 'child2' }
-            ]
-        },
-        {
-            name: 'loading parent',
-            loading: true,
-            children: []
-        },
-        {
-            name: 'parent',
-            children: [
-                {
-                    name: 'nested parent',
-                    children: [
-                        { name: 'nested child 1' },
-                        { name: 'nested child 2' }
-                    ]
-                }
-            ]
-        }
-    ]
+let data1 = {    
+    name: 'root1',
+    toggled: false
 };
 
 
@@ -42,6 +16,7 @@ class ConnectionTree extends React.Component {
     constructor(props, context) {
         super(props, context)
         this.state = {};
+        
         this.onToggle = this.onToggle.bind(this);
     }
 
@@ -55,7 +30,7 @@ class ConnectionTree extends React.Component {
     render(){
         return (
             <Treebeard
-                data={data}
+                data={this.props.data}
                 onToggle={this.onToggle}
                 decorators={modifiedDecorators}
                 style={theme}

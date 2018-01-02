@@ -27,4 +27,9 @@ SIDB.prototype.findConnection = function(id) {
     //id parameter should be a object => {'key': '12345'}
     return db.get('conns').filter(id).value()
 }
+
+SIDB.prototype.removeConnection = function(connection) {
+    return db.get('posts').remove({ id: connection.id }).write()
+}
+
 module.exports = SIDB

@@ -17,7 +17,7 @@ HDBConnection.prototype.initialize = function(hostname, port, database, user, pa
     this.user = user
     this.password = password
     this.client
-    getClient()
+    this.getClient()
     return this
 }
 
