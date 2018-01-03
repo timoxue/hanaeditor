@@ -10,11 +10,18 @@ run command
 
 ## 2. Start
 
-
+```
+  npm start electron
+```
 
 
 ## 3. package the project
 
+### Windows:
 ```
-  npm 
+  npm run pack-win
+```
+### Mac OS:
+```
+  npm run pack-mac
 ```
